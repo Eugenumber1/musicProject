@@ -1,6 +1,7 @@
 import librosa
 import IPython.display as ipd
 import matplotlib.pyplot as plt
+import soundfile as sf
 
 filename = librosa.example('nutcracker')
 
@@ -9,6 +10,7 @@ filename = librosa.example('nutcracker')
 PATH = "/Users/zhenyabudnyk/Downloads/636402__klankbeeld__estate-nl-1156am-220509-0343.wav"
 PATH2 = "/Users/zhenyabudnyk/Downloads/Autotune - Blade Runner (Original) [Official Audio] (128 kbps).mp3"
 y, sr = librosa.load(PATH)
+print(sr)
 
 #sr - smapling rate
 #y - time series - NumPy floating point array one dimensional
@@ -28,8 +30,15 @@ ipd.Audio(filename=PATH2)
 
 #print(y.shape, sr)
 
+#this function loads the audio file and returns the time-serises and sampling rate
 def imp_sound(path=PATH):
     y, sr = librosa.load(path)
     return y, sr
+
+#this function is writing the numpy array and sampling rate to the filename
+def write_audio(name: str, x, sr):
+   sf.write(name+'.wav', y, sr, subtype='PCM_24')
+
+
 
 
