@@ -25,5 +25,11 @@ def show_spectrum(sound_file):
 
 show_spectrum(FILE)
 
+def show_zero_crossing(name: str):
+    x, sr = librosa.load(name)
+    plt.figure(figsize=(14,5))
+    librosa.display.waveshow(x, sr=sr)
+
+
 
 
