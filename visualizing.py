@@ -27,8 +27,14 @@ show_spectrum(FILE)
 
 def show_zero_crossing(name: str):
     x, sr = librosa.load(name)
+    #plt.figure(figsize=(14,5))
+    #librosa.display.waveshow(x, sr=sr)
+    n0 = 7000
+    n1 = 9100
     plt.figure(figsize=(14,5))
-    librosa.display.waveshow(x, sr=sr)
+    plt.plot(x[n0:n1])
+    plt.grid()
+    #plt.show()
 
 
 

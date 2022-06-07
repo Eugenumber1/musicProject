@@ -50,7 +50,7 @@ def create_audio(sr, time, name):
     ipd.Audio(x, rate=sr) # load np array
     write_audio(name, x, sr)
 
-create_audio(22050, 5.0, 'meme6')
+#create_audio(22050, 5.0, 'meme6')
 
 
 
