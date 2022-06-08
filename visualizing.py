@@ -23,7 +23,7 @@ def show_spectrum(sound_file):
     plt.colorbar()
     plt.show()
 
-show_spectrum(FILE)
+#show_spectrum(FILE)
 
 def show_zero_crossing(name: str):
     x, sr = librosa.load(name)

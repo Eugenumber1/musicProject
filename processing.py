@@ -3,6 +3,7 @@ import IPython.display as ipd
 import matplotlib.pyplot as plt
 import soundfile as sf
 import numpy as np
+import sklearn
 
 filename = librosa.example('nutcracker')
 
@@ -51,6 +52,11 @@ def create_audio(sr, time, name):
     write_audio(name, x, sr)
 
 #create_audio(22050, 5.0, 'meme6')
+
+
+#normalising the spectral centroid visualization
+def normalize(x, axis=0):
+    return sklearn.preprocessing.minmax_scale(x, axis=axis)
 
 
 
