@@ -7,6 +7,7 @@ import processing
 FILE = processing.imp_sound()
 
 #this function shows the picture of the wave of the sound
+# arguments = tuple of x and sr
 def show_wave(sound_file):
     plt.figure(figsize=(14, 5))
     librosa.display.waveshow(sound_file[0], sr=sound_file[1])

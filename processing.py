@@ -11,6 +11,7 @@ filename = librosa.example('nutcracker')
 #y, sr = librosa.load(filename)
 PATH = "/Users/zhenyabudnyk/Downloads/636402__klankbeeld__estate-nl-1156am-220509-0343.wav"
 PATH2 = "/Users/zhenyabudnyk/Downloads/Autotune - Blade Runner (Original) [Official Audio] (128 kbps).mp3"
+PATH3 = '/Users/zhenyabudnyk/Downloads/Music-Genre-Classification-with-Python-master_simple_loop.wav'
 #y, sr = librosa.load(PATH)
 #print(sr)
 
