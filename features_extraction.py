@@ -56,12 +56,25 @@ def mel_coef(sound_file):
     plt.show()
 
 
+#chroma frequencies - entire spectrum is projected onto 12 bins representing 12 distinct semitones
+#TODO choose what it returns
+def chroma_freq(sound_file):
+    x, sr = processing.imp_sound(sound_file)
+    hop_len = 512
+    chromagram = librosa.feature.chroma_stft(x, sr=sr, hop_length=hop_len) # compute chromagram from waveform or power spectogram
+    plt.figure(figsize=(15,5))
+    librosa.display.specshow(chromagram, x_axis='time', y_axis='chroma', hop_length=hop_len, cmap='coolwarm')
+    plt.show()
 
 
 
 
 
+
+
+
+chroma_freq(processing.PATH3)
 #spectral_rollof(processing.PATH)
 #spectral_centroid(processing.PATH)
-mel_coef(processing.PATH3)
+#mel_coef(processing.PATH3)
 #zero_crossing(processing.PATH)
