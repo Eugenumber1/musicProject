@@ -9,9 +9,10 @@ filename = librosa.example('nutcracker')
 
 # load audio as waveform
 #y, sr = librosa.load(filename)
-PATH = "/Users/zhenyabudnyk/Downloads/636402__klankbeeld__estate-nl-1156am-220509-0343.wav"
-PATH2 = "/Users/zhenyabudnyk/Downloads/Autotune - Blade Runner (Original) [Official Audio] (128 kbps).mp3"
-PATH3 = '/Users/zhenyabudnyk/Downloads/Music-Genre-Classification-with-Python-master_simple_loop.wav'
+PATH = "sox_transformer/wav/alt.wav"
+PATH2 = "sox_transformer/wav/br.wav"
+PATH3 = 'sox_transformer/wav/celp.wav'
+PATH4 = 'sox_transformer/wav/skepta.wav'
 #y, sr = librosa.load(PATH)
 #print(sr)
 
