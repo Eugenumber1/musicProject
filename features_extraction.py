@@ -27,12 +27,12 @@ def spectral_centroid(sound_file):
     spectral_centroids = librosa.feature.spectral_centroid(x, sr=sr)[0]
     #print(spectral_centroids.shape)
     # computing the time variable for visualization
-    frames = range(len(spectral_centroids))
-    t = librosa.frames_to_time(frames)
+    #frames = range(len(spectral_centroids))
+    #t = librosa.frames_to_time(frames)
     # plotting the spectral centroid along the waveform
-    librosa.display.waveshow(x, sr=sr, alpha=0.4)
-    plt.plot(t, processing.normalize(spectral_centroids), color='r')
-    plt.show()
+    #librosa.display.waveshow(x, sr=sr, alpha=0.4)
+    #plt.plot(t, processing.normalize(spectral_centroids), color='r')
+    #plt.show()
     return(spectral_centroids.var(), spectral_centroids.mean())
 
 
@@ -42,25 +42,29 @@ def spectral_centroid(sound_file):
 def spectral_rollof(sound_file):
     x, sr = processing.imp_sound(sound_file)
     spectral_rollof = librosa.feature.spectral_rolloff(x+0.01, sr=sr)[0]
-    librosa.display.waveshow(x, sr=sr, alpha=0.4)
-    frames = range(len(spectral_rollof))
-    t = librosa.frames_to_time(frames)
-    plt.plot(t, processing.normalize(spectral_rollof), color='r')
-    plt.show()
+    #librosa.display.waveshow(x, sr=sr, alpha=0.4)
+    #frames = range(len(spectral_rollof))
+    #t = librosa.frames_to_time(frames)
+    #plt.plot(t, processing.normalize(spectral_rollof), color='r')
+    #plt.show()
     return (spectral_rollof.var(), spectral_rollof.mean())
 
 #small set of features that describe the overall shape of a spectral envelope
 
 def mel_coef(sound_file):
     x, sr = processing.imp_sound(sound_file)
-    visualizing.show_wave((x, sr))
+    #visualizing.show_wave((x, sr))
     mfccs = librosa.feature.mfcc(x, sr=sr)
     mfccs = sklearn.preprocessing.scale(mfccs, axis=1) #standardization of the variables
     #print(mfccs.mean(axis=1))
     #print(mfccs.var(axis=1))
-    librosa.display.specshow(mfccs, sr=sr, x_axis='time')
-    plt.show()
-    return(mfccs.var(axis=1), mfccs.mean(axis=1))
+    #librosa.display.specshow(mfccs, sr=sr, x_axis='time')
+    #plt.show()
+    #print(mfccs)
+    #print(type(mfccs))
+    #print(type(mfccs.var()))
+    #print(mfccs.var())
+    return(mfccs.var(), mfccs.mean())
 
 
 #chroma frequencies - entire spectrum is projected onto 12 bins representing 12 distinct semitones
@@ -69,17 +73,17 @@ def chroma_freq(sound_file):
     x, sr = processing.imp_sound(sound_file)
     hop_len = 512
     chromagram = librosa.feature.chroma_stft(x, sr=sr, hop_length=hop_len) # compute chromagram from waveform or power spectogram
-    plt.figure(figsize=(15,5))
-    librosa.display.specshow(chromagram, x_axis='time', y_axis='chroma', hop_length=hop_len, cmap='coolwarm')
-    plt.show()
+    #plt.figure(figsize=(15,5))
+    #librosa.display.specshow(chromagram, x_axis='time', y_axis='chroma', hop_length=hop_len, cmap='coolwarm')
+    #plt.show()
     return (chromagram.var(), chromagram.mean())
 
 # spectral bandwidth of the track
 def spectral_bandwidth(sound_file):
     x, sr = processing.imp_sound(sound_file)
     band = librosa.feature.spectral_bandwidth(x, sr)
-    print(band.shape)
-    return (band.var(axis=1), band.mean(axis=1))
+    #print(band.shape)
+    return (band.var(), band.mean())
 
 
 
@@ -93,4 +97,4 @@ def spectral_bandwidth(sound_file):
 #print(spectral_centroid(processing.PATH))
 #print(mel_coef(processing.PATH))
 #print(zero_crossing(processing.PATH))
-print(spectral_bandwidth(processing.PATH))
+#print(spectral_bandwidth(processing.PATH))
