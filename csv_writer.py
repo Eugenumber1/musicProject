@@ -1,8 +1,9 @@
 import csv
 from features_extraction import *
 import processing
+import re
 
-HEADER = ['name', 'zero crossings', 'spectral centroid variance', 'spectral centroid mean', 'spectral rollof variance', 'spectral rollof mean',
+HEADER = ['track_id', 'name', 'zero crossings', 'spectral centroid variance', 'spectral centroid mean', 'spectral rollof variance', 'spectral rollof mean',
           'mel coefficient variance', 'mel coefficient mean', 'chroma frequency variance', 'chroma frequncy mean', 'spectral bandwidth variance',
           'spectral bandwidth mean', 'genre']
 
@@ -14,9 +15,9 @@ tracks = (track1, track2, track3, track4)
 
 # method which generates the list of data
 # the data list will be used to make csv files later
-
 def data_collector(track):
     data = list()
+    data.append(name_retriever(track[0]))
     zc = zero_crossing(track[0])
     data.append(zc)
     print(f'here is {zc}')
@@ -48,4 +49,26 @@ def data_collector(track):
     data.append(track[1])
     return data
 
-data_collector(tracks[0])
+# this method inputs list of tracks and returns makes the csv file with all the features
+# features are not scaled yet
+# adds the track id to the csv file
+def writer(tracks):
+    with open('features.csv', 'w') as f:
+        writer = csv.writer(f)
+        writer.writerow(HEADER)
+        for i in tracks:
+            data = data_collector(i)
+            data.insert(0, tracks.index(i)+1)
+            print(data)
+            writer.writerow(data)
+
+
+#simple method which makes the one name from the song file path
+def name_retriever(sound_file):
+    x = re.split("[/]", sound_file)
+    return x[-1]
+
+
+
+
+writer(tracks)
