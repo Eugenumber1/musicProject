@@ -4,6 +4,7 @@ import librosa.display
 import processing
 
 
+
 FILE = processing.imp_sound()
 
 #this function shows the picture of the wave of the sound
@@ -30,12 +31,37 @@ def show_zero_crossing(name: str):
     x, sr = librosa.load(name)
     #plt.figure(figsize=(14,5))
     #librosa.display.waveshow(x, sr=sr)
-    n0 = 7000
-    n1 = 9100
+    n0 = 0
+    n1 = 100000
     plt.figure(figsize=(14,5))
     plt.plot(x[n0:n1])
     plt.grid()
-    #plt.show()
+    plt.savefig('/Users/zhenyabudnyk/PycharmProjects/musicProject/photos/' + processing.name_retriever(name)+'_zero_crossings.png')
+
+def vis_chroma_freq(name: str):
+    x, sr = librosa.load(name)
+    hop_len = 512
+    chromagram = librosa.feature.chroma_stft(x, sr=sr,
+                                             hop_length=hop_len)  # compute chromagram from waveform or power spectogram
+    plt.figure(figsize=(15,5))
+    librosa.display.specshow(chromagram, x_axis='time', y_axis='chroma', hop_length=hop_len, cmap='coolwarm')
+    plt.savefig('/Users/zhenyabudnyk/PycharmProjects/musicProject/photos/' + processing.name_retriever(name)+'_chroma_freq.png')
+
+
+
+def spectral_centroid(sound_file):
+    x, sr = processing.imp_sound(sound_file)
+    spectral_centroids = librosa.feature.spectral_centroid(x, sr=sr)[0]
+    #print(spectral_centroids.shape)
+    # computing the time variable for visualization
+    frames = range(len(spectral_centroids))
+    t = librosa.frames_to_time(frames)
+    # plotting the spectral centroid along the waveform
+    librosa.display.waveshow(x, sr=sr, alpha=0.4)
+    plt.plot(t, processing.normalize(spectral_centroids), color='r')
+    plt.savefig()
+show_zero_crossing(processing.PATH)
+vis_chroma_freq(processing.PATH)
 
 
 

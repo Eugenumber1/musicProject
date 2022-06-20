@@ -17,7 +17,7 @@ tracks = (track1, track2, track3, track4)
 # the data list will be used to make csv files later
 def data_collector(track):
     data = list()
-    data.append(name_retriever(track[0]))
+    data.append(processing.name_retriever(track[0]))
     zc = zero_crossing(track[0])
     data.append(zc)
     print(f'here is {zc}')
@@ -63,10 +63,7 @@ def writer(tracks):
             writer.writerow(data)
 
 
-#simple method which makes the one name from the song file path
-def name_retriever(sound_file):
-    x = re.split("[/]", sound_file)
-    return x[-1]
+
 
 
 

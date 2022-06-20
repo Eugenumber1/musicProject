@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import soundfile as sf
 import numpy as np
 import sklearn
+import re
 
 filename = librosa.example('nutcracker')
 
@@ -60,7 +61,10 @@ def create_audio(sr, time, name):
 def normalize(x, axis=0):
     return sklearn.preprocessing.minmax_scale(x, axis=axis)
 
-
+#simple method which makes the one name from the song file path
+def name_retriever(sound_file):
+    x = re.split("[/]", sound_file)
+    return x[-1]
 
 
 
