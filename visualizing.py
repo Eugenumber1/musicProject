@@ -2,10 +2,8 @@
 import matplotlib.pyplot as plt
 import librosa.display
 import processing
-
-
-
-FILE = processing.imp_sound()
+import sklearn
+import threading
 
 #this function shows the picture of the wave of the sound
 # arguments = tuple of x and sr
@@ -25,7 +23,6 @@ def show_spectrum(sound_file):
     plt.colorbar()
     plt.show()
 
-#show_spectrum(FILE)
 
 def show_zero_crossing(name: str):
     x, sr = librosa.load(name)
@@ -38,7 +35,7 @@ def show_zero_crossing(name: str):
     plt.grid()
     plt.savefig('/Users/zhenyabudnyk/PycharmProjects/musicProject/photos/' + processing.name_retriever(name)+'_zero_crossings.png')
 
-def vis_chroma_freq(name: str):
+def show_chroma_freq(name: str):
     x, sr = librosa.load(name)
     hop_len = 512
     chromagram = librosa.feature.chroma_stft(x, sr=sr,
@@ -49,8 +46,8 @@ def vis_chroma_freq(name: str):
 
 
 
-def spectral_centroid(sound_file):
-    x, sr = processing.imp_sound(sound_file)
+def show_spectral_centroid(name):
+    x, sr = processing.imp_sound(name)
     spectral_centroids = librosa.feature.spectral_centroid(x, sr=sr)[0]
     #print(spectral_centroids.shape)
     # computing the time variable for visualization
@@ -59,9 +56,61 @@ def spectral_centroid(sound_file):
     # plotting the spectral centroid along the waveform
     librosa.display.waveshow(x, sr=sr, alpha=0.4)
     plt.plot(t, processing.normalize(spectral_centroids), color='r')
-    plt.savefig()
-show_zero_crossing(processing.PATH)
-vis_chroma_freq(processing.PATH)
+    plt.savefig('/Users/zhenyabudnyk/PycharmProjects/musicProject/photos/' + processing.name_retriever(name)+'_spectral_centroid.png')
+
+def show_spectral_rollof(name):
+    x, sr = processing.imp_sound(name)
+    spectral_rollof = librosa.feature.spectral_rolloff(x+0.01, sr=sr)[0]
+    librosa.display.waveshow(x, sr=sr, alpha=0.4)
+    frames = range(len(spectral_rollof))
+    t = librosa.frames_to_time(frames)
+    plt.plot(t, processing.normalize(spectral_rollof), color='r')
+    plt.savefig('/Users/zhenyabudnyk/PycharmProjects/musicProject/photos/' + processing.name_retriever(name)+'_spectral_rollof.png')
+
+def show_mel_coef(name):
+    x, sr = processing.imp_sound(name)
+    #visualizing.show_wave((x, sr))
+    mfccs = librosa.feature.mfcc(x, sr=sr)
+    mfccs = sklearn.preprocessing.scale(mfccs, axis=1) #standardization of the variables
+    librosa.display.specshow(mfccs, sr=sr, x_axis='time')
+    plt.savefig('/Users/zhenyabudnyk/PycharmProjects/musicProject/photos/' + processing.name_retriever(name)+'_mel_coef.png')
+
+
+def show_spectral_bandwidth(name):
+    y, sr = processing.imp_sound(name)
+    band = librosa.feature.spectral_bandwidth(y, sr)
+    times = librosa.times_like(band)
+    plt.semilogy(times, band[0], label='Spectral bandwidth')
+    plt.savefig('/Users/zhenyabudnyk/PycharmProjects/musicProject/photos/' + processing.name_retriever(name)+'_spect_band.png')
+
+
+
+def thread_approach(name):
+    t1 = threading.Thread(target=show_zero_crossing(processing.PATH))
+    t2 = threading.Thread(target=show_chroma_freq(processing.PATH))
+    t3 = threading.Thread(target=show_spectral_centroid(processing.PATH))
+    t4 = threading.Thread(target=show_spectral_rollof(processing.PATH))
+    t5 = threading.Thread(target=show_mel_coef(processing.PATH))
+    t6 = threading.Thread(target=show_spectral_bandwidth(processing.PATH))
+    t1.start()
+    t1.join()
+    t2.start()
+    t2.join()
+    t3.start()
+    t3.join()
+    t4.start()
+    t4.join()
+    t5.start()
+    t5.join()
+    t6.start()
+
+thread_approach(processing.PATH)
+
+
+
+
+
+
 
 
 
