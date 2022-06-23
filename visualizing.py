@@ -34,6 +34,7 @@ def show_zero_crossing(name: str):
     plt.plot(x[n0:n1])
     plt.grid()
     plt.savefig('/Users/zhenyabudnyk/PycharmProjects/musicProject/photos/' + processing.name_retriever(name)+'_zero_crossings.png')
+    plt.close()
 
 def show_chroma_freq(name: str):
     x, sr = librosa.load(name)
@@ -43,6 +44,7 @@ def show_chroma_freq(name: str):
     plt.figure(figsize=(15,5))
     librosa.display.specshow(chromagram, x_axis='time', y_axis='chroma', hop_length=hop_len, cmap='coolwarm')
     plt.savefig('/Users/zhenyabudnyk/PycharmProjects/musicProject/photos/' + processing.name_retriever(name)+'_chroma_freq.png')
+    plt.close()
 
 
 
@@ -57,6 +59,7 @@ def show_spectral_centroid(name):
     librosa.display.waveshow(x, sr=sr, alpha=0.4)
     plt.plot(t, processing.normalize(spectral_centroids), color='r')
     plt.savefig('/Users/zhenyabudnyk/PycharmProjects/musicProject/photos/' + processing.name_retriever(name)+'_spectral_centroid.png')
+    plt.close()
 
 def show_spectral_rollof(name):
     x, sr = processing.imp_sound(name)
@@ -66,6 +69,7 @@ def show_spectral_rollof(name):
     t = librosa.frames_to_time(frames)
     plt.plot(t, processing.normalize(spectral_rollof), color='r')
     plt.savefig('/Users/zhenyabudnyk/PycharmProjects/musicProject/photos/' + processing.name_retriever(name)+'_spectral_rollof.png')
+    plt.close()
 
 def show_mel_coef(name):
     x, sr = processing.imp_sound(name)
@@ -74,6 +78,7 @@ def show_mel_coef(name):
     mfccs = sklearn.preprocessing.scale(mfccs, axis=1) #standardization of the variables
     librosa.display.specshow(mfccs, sr=sr, x_axis='time')
     plt.savefig('/Users/zhenyabudnyk/PycharmProjects/musicProject/photos/' + processing.name_retriever(name)+'_mel_coef.png')
+    plt.close()
 
 
 def show_spectral_bandwidth(name):
@@ -82,6 +87,7 @@ def show_spectral_bandwidth(name):
     times = librosa.times_like(band)
     plt.semilogy(times, band[0], label='Spectral bandwidth')
     plt.savefig('/Users/zhenyabudnyk/PycharmProjects/musicProject/photos/' + processing.name_retriever(name)+'_spect_band.png')
+    plt.close()
 
 
 
