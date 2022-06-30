@@ -90,27 +90,18 @@ def show_spectral_bandwidth(name):
     plt.close()
 
 
+# this method makes pictures of all diagrams and saves them
 
-def thread_approach(name):
-    t1 = threading.Thread(target=show_zero_crossing(processing.PATH))
-    t2 = threading.Thread(target=show_chroma_freq(processing.PATH))
-    t3 = threading.Thread(target=show_spectral_centroid(processing.PATH))
-    t4 = threading.Thread(target=show_spectral_rollof(processing.PATH))
-    t5 = threading.Thread(target=show_mel_coef(processing.PATH))
-    t6 = threading.Thread(target=show_spectral_bandwidth(processing.PATH))
-    t1.start()
-    t1.join()
-    t2.start()
-    t2.join()
-    t3.start()
-    t3.join()
-    t4.start()
-    t4.join()
-    t5.start()
-    t5.join()
-    t6.start()
+def visualize(name):
+    show_zero_crossing(name)
+    show_chroma_freq(name)
+    show_spectral_centroid(name)
+    show_spectral_rollof(name)
+    show_mel_coef(name)
+    show_spectral_bandwidth(name)
 
-thread_approach(processing.PATH)
+
+visualize(processing.PATH)
 
 
 
