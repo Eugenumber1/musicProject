@@ -32,6 +32,11 @@ def scaler(X_train, X_test):
 
 #print(split_variables('/Users/zhenyabudnyk/PycharmProjects/musicProject/features.csv'))
 
-print(scaler(split_train_test(split_variables('/Users/zhenyabudnyk/PycharmProjects/musicProject/features.csv')[0],
-                       split_variables('/Users/zhenyabudnyk/PycharmProjects/musicProject/features.csv')[1])[0], split_train_test(split_variables('/Users/zhenyabudnyk/PycharmProjects/musicProject/features.csv')[0],
-                       split_variables('/Users/zhenyabudnyk/PycharmProjects/musicProject/features.csv')[1])[1]))
+
+# this method return fully preprocessed data, split into train and test sets, also scaled
+def preprocess(path):
+    X, y = split_variables(path)
+    X_train, X_test, y_train, y_test = split_train_test(X, y)
+    X_train, X_test = scaler(X_train, X_test)
+    return X_train, X_test, y_train, y_test
+
