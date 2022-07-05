@@ -34,9 +34,10 @@ def scaler(X_train, X_test):
 
 
 # this method return fully preprocessed data, split into train and test sets, also scaled
-def preprocess(path):
+def preprocess(path, not_decision_tree=True):
     X, y = split_variables(path)
     X_train, X_test, y_train, y_test = split_train_test(X, y)
-    X_train, X_test = scaler(X_train, X_test)
+    if not_decision_tree == True:
+        X_train, X_test = scaler(X_train, X_test)
     return X_train, X_test, y_train, y_test
 

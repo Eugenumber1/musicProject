@@ -6,7 +6,7 @@ import data_preprocessing
 
 # this method gets the training data and trains the classifier, returns the classifier as well
 def svm_train(X_train, y_train):
-    clf = sklearn.svm.SVC()
+    clf = sklearn.svm.SVC(kernel='rbf')
     clf.fit(X_train, y_train)
     return clf
 
