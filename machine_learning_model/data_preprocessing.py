@@ -23,8 +23,11 @@ def split_train_test(X, y):
 # for classification we need to scale only the numerical data, which is - independent variables
 # the dependent variable is a class(string) so we can't scale it
 # decision - to use standard scaler at first and evaluate the accuracy of the algo later
-def scaler(X_train, X_test):
-    scaler = sklearn.preprocessing.StandardScaler()
+def scaler(X_train, X_test, standard_scaler=True):
+    if standard_scaler is True:
+        scaler = sklearn.preprocessing.StandardScaler()
+    else:
+        scaler = sklearn.preprocessing.MinMaxScaler()
     X_train = scaler.fit_transform(X_train)
     X_test = scaler.fit_transform(X_test)
     return X_train, X_test
@@ -34,10 +37,10 @@ def scaler(X_train, X_test):
 
 
 # this method return fully preprocessed data, split into train and test sets, also scaled
-def preprocess(path, not_decision_tree=True):
+def preprocess(path, not_decision_tree=True, standard_scaler=True):
     X, y = split_variables(path)
     X_train, X_test, y_train, y_test = split_train_test(X, y)
     if not_decision_tree == True:
-        X_train, X_test = scaler(X_train, X_test)
+        X_train, X_test = scaler(X_train, X_test, standard_scaler)
     return X_train, X_test, y_train, y_test
 

@@ -8,7 +8,7 @@ import knn_analyzer
 # this method will train the decision tree classification on the data
 # Note: Decision tree doesn't require data scaling, so we will update data_preprocessing.py
 def decision_tree_train(X_train, y_train):
-    classifier = sklearn.tree.DecisionTreeClassifier(criterion='entropy', random_state=0)
+    classifier = sklearn.tree.DecisionTreeClassifier(criterion='gini', random_state=0)
     classifier.fit(X_train, y_train)
     return classifier
 
@@ -26,7 +26,7 @@ def decision_tree_predict(classifier, X_test):
 
 # run method runs everything
 def run(path):
-    X_train, X_test, y_train, y_test = data_preprocessing.preprocess(path, not_decision_tree=False)
+    X_train, X_test, y_train, y_test = data_preprocessing.preprocess(path, not_decision_tree=False, standard_scaler=False)
     print(knn_analyzer.accuracy_estimator(y_test, decision_tree_predict(random_forest_train(X_train, y_train), X_test)))
 
 
