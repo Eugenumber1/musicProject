@@ -29,7 +29,7 @@ def scaler(X_train, X_test, standard_scaler=True):
     else:
         scaler = sklearn.preprocessing.MinMaxScaler()
     X_train = scaler.fit_transform(X_train)
-    X_test = scaler.fit_transform(X_test)
+    X_test = scaler.transform(X_test)
     return X_train, X_test
 
 
