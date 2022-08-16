@@ -18,6 +18,7 @@ HEADER = ['track_id', 'name', 'zero crossings', 'spectral centroid variance', 's
 #track5 = Track(path='/Users/zhenyabudnyk/PycharmProjects/musicProject/sox_transformer/genres_original/hiphop/hiphop.00002.wav')
 
 # this method is doing parsing through the folders of the genres folder and through their music files
+# it returns the list of tracks
 def parser(dir_path):
     tracks = list()
     for folder in os.listdir(dir_path):
@@ -28,10 +29,7 @@ def parser(dir_path):
     return tracks
 
 
-
-
-
-# method which generates the list of data
+# method which generates the list of data consisting of the features
 # the data list will be used to make csv files later
 def data_collector(track: Track):
     data = list()

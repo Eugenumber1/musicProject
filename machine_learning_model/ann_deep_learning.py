@@ -47,7 +47,7 @@ def run(path):
     #print(y_train)
     ann = ann_make(X_train, y_train)
     predictions = ann.predict(X_test)
-    #print(predictions)
+    print(predictions)
     #print(accuracy_estimator(y_test, predictions))
     #ann.evaluate()
 
